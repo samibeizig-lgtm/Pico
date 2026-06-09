@@ -104,6 +104,12 @@
   border-radius: 6px;
 }
 
+.detail-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
 .pet-card-arrow {
   color: var(--gray);
   font-size: 22px;

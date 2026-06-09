@@ -1,10 +1,11 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
+import { HomeIcon, PawIcon } from './Icons';
 import './Navigation.css';
 
 const tabs = [
-  { path: '/', icon: '🏠', label: 'Accueil' },
-  { path: '/pets', icon: '🐾', label: 'Mes Animaux' },
+  { path: '/', icon: <HomeIcon size={22} />, label: 'Accueil' },
+  { path: '/pets', icon: <PawIcon size={22} />, label: 'Mes Animaux' },
 ];
 
 export default function Navigation() {

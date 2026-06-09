@@ -110,6 +110,7 @@
   align-items: center;
   justify-content: center;
   flex: 1;
+  min-height: 140px;
 }
 
 .add-circle-btn {

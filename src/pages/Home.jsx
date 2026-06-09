@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
+import { BellIcon, PawIcon, PillIcon, SyringeIcon } from '../components/Icons';
 import './Home.css';
 
 function DogIllustration() {
@@ -55,7 +56,7 @@ export default function Home() {
       {/* ── TOP BAR ── */}
       <div className="home-topbar">
         <div>
-          <p className="home-greeting">Bonjour ! 👋</p>
+          <p className="home-greeting">Bonjour !</p>
           <h1 className="home-title">
             <span className="pico">PICO</span>
             <span className="pets"> PETS</span>
@@ -65,7 +66,7 @@ export default function Home() {
           <div className="home-date">{today}</div>
           {!notifPrefs.enabled && (
             <button className="notif-btn" onClick={enableNotifications} title="Activer les notifications">
-              🔔
+              <BellIcon size={18} color="#FF6B2B" />
             </button>
           )}
         </div>
@@ -76,7 +77,7 @@ export default function Home() {
         <DogIllustration />
         <div className="dog-bubble">
           {pets.length === 0
-            ? 'Ajoute ton premier animal ! 🐾'
+            ? 'Ajoute ton premier animal !'
             : `${pets.length} animal${pets.length > 1 ? 'x' : ''} sous ma garde !`}
         </div>
       </div>
@@ -89,10 +90,12 @@ export default function Home() {
           <div className="alerts-row">
             {urgentAlerts.map((alert) => (
               <div key={alert.id} className="alert-pill alert-pill--urgent">
-                <span>{alert.type === 'vaccine' ? '💉' : '💊'}</span>
+                {alert.type === 'vaccine'
+                  ? <SyringeIcon size={16} color="#FF6B2B" />
+                  : <PillIcon size={16} color="#FF6B2B" />}
                 <span>{alert.petName} — {alert.title}</span>
                 <span className="badge badge-danger">
-                  {alert.days === 0 ? "Auj. !" : `J-${alert.days}`}
+                  {alert.days === 0 ? 'Auj. !' : `J-${alert.days}`}
                 </span>
               </div>
             ))}
@@ -103,7 +106,9 @@ export default function Home() {
           <div className="alerts-row">
             {alerts.filter((a) => a.days > 1).map((alert) => (
               <div key={alert.id} className="alert-pill alert-pill--upcoming">
-                <span>{alert.type === 'vaccine' ? '💉' : '💊'}</span>
+                {alert.type === 'vaccine'
+                  ? <SyringeIcon size={16} color="#FF6B2B" />
+                  : <PillIcon size={16} color="#FF6B2B" />}
                 <span>{alert.petName} — {alert.title}</span>
                 <span className="badge badge-warning">J-{alert.days}</span>
               </div>
@@ -111,17 +116,14 @@ export default function Home() {
           </div>
         )}
 
-        {/* Pets carousel */}
+        {/* Pets carousel — no photo, always paw icon */}
         {pets.length > 0 && (
           <div className="pets-scroll">
             {pets.slice(0, 6).map((pet) => (
               <div key={pet.id} className="pet-mini-card"
                 onClick={() => navigate(`/pets/${pet.id}`)}>
                 <div className="pet-mini-avatar">
-                  {pet.photo
-                    ? <img src={pet.photo} alt={pet.name} />
-                    : <span>{pet.type === 'dog' ? '🐕' : pet.type === 'cat' ? '🐈' : '🐾'}</span>
-                  }
+                  <PawIcon size={30} color="#FF6B2B" />
                 </div>
                 <span className="pet-mini-name">{pet.name}</span>
               </div>
@@ -129,15 +131,15 @@ export default function Home() {
           </div>
         )}
 
-        {/* Bouton circulaire centré — uniquement si aucun animal */}
-        {pets.length === 0 && (
-          <div className="add-btn-wrap">
-            <button className="add-circle-btn" onClick={() => navigate('/pets/add')}>
-              <span className="add-circle-plus">＋</span>
-              <span className="add-circle-label">Ajouter mon<br/>premier animal</span>
-            </button>
-          </div>
-        )}
+        {/* Bouton circulaire — toujours visible */}
+        <div className="add-btn-wrap">
+          <button className="add-circle-btn" onClick={() => navigate('/pets/add')}>
+            <span className="add-circle-plus">＋</span>
+            <span className="add-circle-label">
+              {pets.length === 0 ? 'Ajouter mon\npremier animal' : 'Ajouter\nun animal'}
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   );

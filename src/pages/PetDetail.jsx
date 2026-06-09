@@ -2,24 +2,28 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { getAge, formatDate } from '../utils/notifications';
+import {
+  PawIcon, PillIcon, SyringeIcon, MedicalCrossIcon,
+  CalendarIcon, WeightIcon, RulerIcon, PaletteIcon, NoteIcon, EditIcon
+} from '../components/Icons';
 import Treatments from './Treatments';
 import Vaccines from './Vaccines';
 import MedicalRecord from './MedicalRecord';
 import './PetDetail.css';
 
 const TABS = [
-  { id: 'info', label: 'Profil', icon: '🐾' },
-  { id: 'treatments', label: 'Traitements', icon: '💊' },
-  { id: 'vaccines', label: 'Vaccins', icon: '💉' },
-  { id: 'medical', label: 'Médical', icon: '🏥' },
+  { id: 'info', label: 'Profil', icon: <PawIcon size={18} /> },
+  { id: 'treatments', label: 'Traitements', icon: <PillIcon size={18} /> },
+  { id: 'vaccines', label: 'Vaccins', icon: <SyringeIcon size={18} /> },
+  { id: 'medical', label: 'Médical', icon: <MedicalCrossIcon size={18} /> },
 ];
 
 const PET_TYPES = {
-  dog: { emoji: '🐕', label: 'Chien' },
-  cat: { emoji: '🐈', label: 'Chat' },
-  rabbit: { emoji: '🐇', label: 'Lapin' },
-  bird: { emoji: '🦜', label: 'Oiseau' },
-  other: { emoji: '🐾', label: 'Autre' },
+  dog: { label: 'Chien' },
+  cat: { label: 'Chat' },
+  rabbit: { label: 'Lapin' },
+  bird: { label: 'Oiseau' },
+  other: { label: 'Autre' },
 };
 
 function InfoTab({ pet }) {
@@ -27,13 +31,13 @@ function InfoTab({ pet }) {
   const typeInfo = PET_TYPES[pet.type] || PET_TYPES.other;
 
   const fields = [
-    { label: 'Type', value: typeInfo.label, icon: typeInfo.emoji },
-    { label: 'Race', value: pet.breed, icon: '🐾' },
-    { label: 'Couleur', value: pet.color, icon: '🎨' },
-    { label: 'Date de naissance', value: formatDate(pet.birthDate), icon: '🎂' },
-    { label: 'Âge', value: getAge(pet.birthDate), icon: '📅' },
-    { label: 'Poids', value: pet.weight ? `${pet.weight} kg` : null, icon: '⚖️' },
-    { label: 'Taille', value: pet.height ? `${pet.height} cm` : null, icon: '📏' },
+    { label: 'Type', value: typeInfo.label, icon: <PawIcon size={18} color="var(--orange)" /> },
+    { label: 'Race', value: pet.breed, icon: <PawIcon size={18} color="var(--orange)" /> },
+    { label: 'Couleur', value: pet.color, icon: <PaletteIcon size={18} color="var(--orange)" /> },
+    { label: 'Date de naissance', value: formatDate(pet.birthDate), icon: <CalendarIcon size={18} color="var(--orange)" /> },
+    { label: 'Âge', value: getAge(pet.birthDate), icon: <CalendarIcon size={18} color="var(--orange)" /> },
+    { label: 'Poids', value: pet.weight ? `${pet.weight} kg` : null, icon: <WeightIcon size={18} color="var(--orange)" /> },
+    { label: 'Taille', value: pet.height ? `${pet.height} cm` : null, icon: <RulerIcon size={18} color="var(--orange)" /> },
   ].filter((f) => f.value && f.value !== '-');
 
   return (
@@ -54,7 +58,10 @@ function InfoTab({ pet }) {
 
       {pet.notes && (
         <div className="card" style={{ marginTop: 12 }}>
-          <h3 className="card-subtitle">📝 Notes</h3>
+          <h3 className="card-subtitle">
+            <NoteIcon size={16} color="var(--blue-dark)" style={{ verticalAlign: 'middle', marginRight: 4 }} />
+            Notes
+          </h3>
           <p className="notes-text">{pet.notes}</p>
         </div>
       )}
@@ -64,7 +71,7 @@ function InfoTab({ pet }) {
         style={{ marginTop: 16 }}
         onClick={() => navigate(`/pets/${pet.id}/edit`)}
       >
-        ✏️ Modifier le profil
+        <EditIcon size={15} color="var(--orange)" /> Modifier le profil
       </button>
     </div>
   );
@@ -83,12 +90,6 @@ export default function PetDetail() {
   }
 
   const typeInfo = PET_TYPES[pet.type] || PET_TYPES.other;
-  const petAlerts = alerts.filter((a) => {
-    return (
-      (a.type === 'treatment' || a.type === 'vaccine') &&
-      true
-    );
-  });
 
   const treatmentAlerts = alerts.filter(
     (a) => a.type === 'treatment' && a.petName === pet.name
@@ -106,17 +107,16 @@ export default function PetDetail() {
           <div className="petdetail-avatar">
             {pet.photo
               ? <img src={pet.photo} alt={pet.name} />
-              : <span>{typeInfo.emoji}</span>
+              : <PawIcon size={52} color="#FF6B2B" />
             }
           </div>
           <h1 className="petdetail-name">{pet.name}</h1>
-          <div className="petdetail-badges">
-            <span className="badge badge-orange">{typeInfo.label}</span>
-            {pet.breed && <span className="badge badge-blue">{pet.breed}</span>}
-            {pet.birthDate && (
-              <span className="badge badge-gray">{getAge(pet.birthDate)}</span>
-            )}
-          </div>
+          {/* Only breed badge — no type, no age */}
+          {pet.breed && (
+            <div className="petdetail-badges">
+              <span className="badge badge-blue">{pet.breed}</span>
+            </div>
+          )}
         </div>
 
         {/* Alerts banner */}
@@ -124,12 +124,12 @@ export default function PetDetail() {
           <div className="petdetail-alerts">
             {treatmentAlerts.length > 0 && (
               <div className="alert-mini">
-                💊 {treatmentAlerts.length} traitement{treatmentAlerts.length > 1 ? 's' : ''} à venir
+                <PillIcon size={13} color="#FCA5A5" /> {treatmentAlerts.length} traitement{treatmentAlerts.length > 1 ? 's' : ''} à venir
               </div>
             )}
             {vaccineAlerts.length > 0 && (
               <div className="alert-mini alert-mini--vaccine">
-                💉 {vaccineAlerts.length} vaccin{vaccineAlerts.length > 1 ? 's' : ''} à venir
+                <SyringeIcon size={13} color="#FCD34D" /> {vaccineAlerts.length} vaccin{vaccineAlerts.length > 1 ? 's' : ''} à venir
               </div>
             )}
           </div>
@@ -144,7 +144,7 @@ export default function PetDetail() {
             className={`tab-btn ${activeTab === tab.id ? 'active' : ''}`}
             onClick={() => setActiveTab(tab.id)}
           >
-            <span>{tab.icon}</span>
+            <span className="tab-icon">{tab.icon}</span>
             <span>{tab.label}</span>
           </button>
         ))}
