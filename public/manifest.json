@@ -1,0 +1,19 @@
+{
+  "name": "PICO PETS",
+  "short_name": "PICO PETS",
+  "description": "Suivi santé de vos animaux",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D1B2A",
+  "theme_color": "#FF6B2B",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["health", "lifestyle"]
+}

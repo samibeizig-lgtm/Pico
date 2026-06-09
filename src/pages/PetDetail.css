@@ -1,0 +1,132 @@
+.petdetail-page { background: var(--gray-light); }
+
+.petdetail-header {
+  background: linear-gradient(160deg, var(--blue-dark) 0%, var(--blue-mid) 100%);
+  padding: 50px 20px 0;
+  position: relative;
+}
+
+.petdetail-hero {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.petdetail-avatar {
+  width: 88px; height: 88px;
+  border-radius: 22px;
+  background: var(--orange-pale);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 42px;
+  border: 3px solid rgba(255,107,43,0.5);
+}
+
+.petdetail-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.petdetail-meta { flex: 1; }
+.petdetail-meta h1 { color: white; font-size: 26px; font-weight: 800; margin-bottom: 8px; }
+
+.petdetail-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.petdetail-alerts {
+  display: flex; gap: 8px;
+  padding: 0 0 16px;
+  flex-wrap: wrap;
+}
+
+.alert-mini {
+  background: rgba(239,68,68,0.2);
+  color: #FCA5A5;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid rgba(239,68,68,0.3);
+}
+
+.alert-mini--vaccine {
+  background: rgba(245,158,11,0.2);
+  color: #FCD34D;
+  border-color: rgba(245,158,11,0.3);
+}
+
+.tabs-bar {
+  background: var(--blue-dark);
+  display: flex;
+  border-bottom: 2px solid rgba(255,255,255,0.08);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs-bar::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  flex: 1;
+  min-width: 80px;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 4px;
+  padding: 12px 8px;
+  background: transparent;
+  color: var(--gray);
+  font-size: 11px; font-weight: 600;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.tab-btn span:first-child { font-size: 18px; }
+
+.tab-btn.active {
+  color: var(--orange);
+  border-bottom-color: var(--orange);
+}
+
+.tab-content {
+  padding: 16px;
+}
+
+/* Info tab */
+.info-tab { display: flex; flex-direction: column; }
+
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.info-icon { font-size: 20px; margin-top: 2px; }
+
+.info-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.info-value {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--blue-dark);
+  margin-top: 2px;
+}
+
+.card-subtitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--blue-dark);
+  margin-bottom: 8px;
+}
+
+.notes-text {
+  font-size: 14px;
+  color: var(--gray-dark);
+  line-height: 1.6;
+}

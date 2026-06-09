@@ -1,0 +1,164 @@
+.medical-tab { display: flex; flex-direction: column; gap: 12px; }
+
+.filter-tabs {
+  display: flex;
+  gap: 8px;
+  background: white;
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-card);
+}
+
+.filter-tab {
+  flex: 1;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-dark);
+  background: transparent;
+  transition: all 0.2s;
+}
+
+.filter-tab.active {
+  background: var(--orange);
+  color: white;
+}
+
+.record-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 14px;
+  display: flex;
+  gap: 12px;
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.record-card:hover { box-shadow: var(--shadow); }
+
+.record-icon-wrap {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.record-info { flex: 1; min-width: 0; }
+
+.record-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.record-top h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--blue-dark);
+  flex: 1;
+}
+
+.record-badges { display: flex; flex-wrap: wrap; gap: 4px; }
+
+.record-dates { margin-bottom: 4px; }
+
+.record-date {
+  font-size: 12px;
+  color: var(--gray-dark);
+}
+
+.record-expanded {
+  margin-top: 12px;
+  border-top: 1px solid #E2E8F0;
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.record-section { display: flex; flex-direction: column; gap: 4px; }
+
+.record-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--gray);
+}
+
+.record-section p {
+  font-size: 13px;
+  color: var(--gray-dark);
+  line-height: 1.5;
+}
+
+.record-action-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.record-action-row .action-btn {
+  flex: 1;
+  width: auto;
+  padding: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.record-chevron {
+  color: var(--gray);
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Shared modal styles from Treatments.css */
+.type-selector-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.type-chip {
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-dark);
+  background: var(--gray-light);
+  border: 2px solid transparent;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.type-chip.active { color: var(--blue-dark); }
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  background: var(--gray-light);
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+}
+
+.checkbox-row input[type="checkbox"] {
+  width: 20px; height: 20px;
+  accent-color: var(--orange);
+  cursor: pointer;
+}
+
+.checkbox-row label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--blue-dark);
+  cursor: pointer;
+}

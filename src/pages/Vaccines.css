@@ -1,0 +1,74 @@
+.vaccines-tab { display: flex; flex-direction: column; gap: 12px; }
+
+.list-section-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gray-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.vaccine-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 14px;
+  display: flex;
+  gap: 12px;
+  box-shadow: var(--shadow-card);
+}
+
+.vaccine-icon-wrap {
+  width: 46px; height: 46px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--blue-mid), var(--blue-card));
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 22px;
+}
+
+.vaccine-info { flex: 1; min-width: 0; }
+
+.vaccine-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.vaccine-top h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--blue-dark);
+}
+
+.vaccine-dates { display: flex; flex-direction: column; gap: 4px; margin-bottom: 6px; }
+
+.vaccine-date-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vaccine-date-row.next { background: var(--orange-pale); border-radius: 6px; padding: 4px 8px; }
+
+.vd-label {
+  font-size: 11px;
+  color: var(--gray);
+  min-width: 80px;
+}
+
+.vd-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--blue-dark);
+}
+
+.vaccine-vet, .vaccine-lot, .vaccine-notes {
+  font-size: 12px;
+  color: var(--gray-dark);
+  margin-top: 4px;
+}
+
+.vaccine-notes { font-style: italic; color: var(--gray); }
