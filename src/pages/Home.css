@@ -1,70 +1,94 @@
+/* ── Page figée, aucun scroll vertical ── */
 .home-page {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   background: var(--blue-dark);
-  padding-bottom: 80px;
 }
 
+/* ── Header ── */
 .home-header {
   background: linear-gradient(160deg, var(--blue-dark) 0%, var(--blue-mid) 100%);
-  padding: 50px 20px 0;
+  padding: 48px 20px 0;
   position: relative;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .home-header::before {
   content: '';
   position: absolute;
-  top: -40px;
-  right: -40px;
-  width: 200px;
-  height: 200px;
+  top: -40px; right: -40px;
+  width: 200px; height: 200px;
   background: radial-gradient(circle, rgba(255,107,43,0.15) 0%, transparent 70%);
   border-radius: 50%;
+  pointer-events: none;
 }
 
 .home-header-top {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .home-greeting {
   color: var(--text-light);
-  font-size: 14px;
-  margin-bottom: 4px;
+  font-size: 13px;
+  margin-bottom: 2px;
 }
 
 .home-title {
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 900;
   letter-spacing: -0.5px;
 }
 
-.pico { color: var(--orange); }
-.pets { color: white; }
+.pico  { color: var(--orange); }
+.pets  { color: white; }
+
+.home-header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
 
 .home-date {
   font-size: 11px;
   color: var(--gray);
   text-align: right;
-  margin-top: 4px;
   max-width: 100px;
   line-height: 1.4;
   text-transform: capitalize;
 }
 
+/* Cloche notifications en haut à droite */
+.notif-btn {
+  width: 36px; height: 36px;
+  background: rgba(255,107,43,0.18);
+  border: 1.5px solid rgba(255,107,43,0.4);
+  border-radius: 10px;
+  font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+
+.notif-btn:hover { background: rgba(255,107,43,0.3); transform: scale(1.08); }
+
+/* ── Dog zone ── */
 .dog-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
-  margin-top: -10px;
+  margin-top: -4px;
 }
 
 .dog-svg {
-  width: 220px;
-  height: 210px;
-  filter: drop-shadow(0 10px 30px rgba(255,107,43,0.25));
+  width: 200px;
+  height: 190px;
+  filter: drop-shadow(0 8px 24px rgba(255,107,43,0.25));
 }
 
 .dog-bubble {
@@ -72,33 +96,56 @@
   color: var(--blue-dark);
   font-size: 13px;
   font-weight: 600;
-  padding: 8px 16px;
+  padding: 7px 16px;
   border-radius: 20px;
-  margin-top: -8px;
-  margin-bottom: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  margin-top: -6px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.18);
   position: relative;
 }
 
 .dog-bubble::before {
   content: '';
   position: absolute;
-  top: -8px;
-  left: 50%;
+  top: -8px; left: 50%;
   transform: translateX(-50%);
   border: 8px solid transparent;
   border-bottom-color: white;
   border-top: none;
 }
 
+/* Bouton sous le chien — visible uniquement si aucun animal */
+.add-first-btn {
+  background: var(--orange);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  margin-top: 14px;
+  margin-bottom: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 6px 20px rgba(255,107,43,0.4);
+}
+
+.add-first-btn:hover  { background: var(--orange-dark); transform: translateY(-1px); }
+.add-first-btn:active { transform: scale(0.97); }
+
+/* ── Content scrollable ── */
 .home-content {
   background: var(--gray-light);
   border-radius: 24px 24px 0 0;
-  padding: 24px 16px;
-  min-height: 50vh;
+  padding: 20px 16px 80px;
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 
-.alerts-section { margin-bottom: 20px; }
+.home-content::-webkit-scrollbar { display: none; }
+
+/* Alerts */
+.alerts-section { margin-bottom: 16px; }
 
 .alert-card {
   display: flex;
@@ -113,8 +160,7 @@
 }
 
 .alert-card--upcoming { border-left-color: var(--warning); }
-
-.alert-icon { font-size: 28px; }
+.alert-icon { font-size: 26px; }
 
 .alert-info {
   display: flex;
@@ -123,46 +169,15 @@
   flex: 1;
 }
 
-.alert-info strong { font-size: 15px; color: var(--blue-dark); }
-.alert-info span { font-size: 13px; color: var(--gray-dark); }
+.alert-info strong { font-size: 14px; color: var(--blue-dark); }
+.alert-info span   { font-size: 12px; color: var(--gray-dark); }
 
-.quick-actions { margin-bottom: 24px; }
-
-.quick-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-.quick-btn {
-  background: white;
-  border-radius: var(--radius);
-  padding: 16px 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  box-shadow: var(--shadow-card);
-  transition: all 0.2s;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--blue-dark);
-  text-align: center;
-  line-height: 1.3;
-}
-
-.quick-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
-.quick-btn:active { transform: scale(0.97); }
-
-.quick-btn--notif { border: 2px dashed var(--orange); background: var(--orange-pale); }
-
-.quick-icon { font-size: 26px; }
-
+/* Pets carousel */
 .pets-scroll {
   display: flex;
   gap: 12px;
   overflow-x: auto;
-  padding-bottom: 8px;
+  padding-bottom: 6px;
   scrollbar-width: none;
 }
 
@@ -178,32 +193,18 @@
 }
 
 .pet-mini-avatar {
-  width: 64px;
-  height: 64px;
+  width: 64px; height: 64px;
   border-radius: 20px;
   background: var(--orange-pale);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   font-size: 28px;
   overflow: hidden;
   border: 3px solid transparent;
   transition: all 0.2s;
 }
 
-.pet-mini-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
+.pet-mini-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .pet-mini-card:hover .pet-mini-avatar { border-color: var(--orange); transform: scale(1.05); }
-
-.pet-mini-avatar--add {
-  background: white;
-  border: 2px dashed var(--orange);
-  font-size: 20px;
-}
 
 .pet-mini-name {
   font-size: 12px;
@@ -215,16 +216,3 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
-.no-pets-cta {
-  background: white;
-  border-radius: var(--radius);
-  padding: 24px;
-  text-align: center;
-  box-shadow: var(--shadow-card);
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.no-pets-cta p { color: var(--gray-dark); font-size: 14px; line-height: 1.6; }
