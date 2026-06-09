@@ -20,9 +20,6 @@ export default function PetList() {
     <div className="petlist-page page">
       <div className="petlist-header">
         <h1>Mes Animaux</h1>
-        <button className="add-pet-btn" onClick={() => navigate('/pets/add')}>
-          ➕
-        </button>
       </div>
 
       {pets.length === 0 ? (
@@ -75,13 +72,7 @@ export default function PetList() {
             );
           })}
 
-          <button
-            className="pet-add-card"
-            onClick={() => navigate('/pets/add')}
-          >
-            <span className="add-icon">➕</span>
-            <span>Ajouter un animal</span>
-          </button>
+
         </div>
       )}
     </div>

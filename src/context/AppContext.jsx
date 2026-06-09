@@ -9,7 +9,8 @@ import {
 } from '../utils/storage';
 import {
   requestNotificationPermission,
-  sendNotification,
+  checkNotificationPermission,
+  scheduleUpcomingNotifications,
   checkUpcomingAlerts,
   getDaysUntil,
 } from '../utils/notifications';
@@ -34,26 +35,31 @@ export function AppProvider({ children }) {
     refreshAlerts();
   }, [refreshAlerts]);
 
+  // Reschedule native notifications whenever data or prefs change
   useEffect(() => {
     if (!notifPrefs.enabled) return;
-    const a = refreshAlerts();
-    a.forEach((alert) => {
-      const label = alert.type === 'vaccine' ? 'Vaccin' : 'Traitement';
-      const msg = alert.days === 0
-        ? `Aujourd'hui!`
-        : `Dans ${alert.days} jour${alert.days > 1 ? 's' : ''}`;
-      sendNotification(
-        `🐾 ${label} - ${alert.petName}`,
-        `${alert.title}: ${msg}`
-      );
+    scheduleUpcomingNotifications(treatments, vaccines, pets, notifPrefs.daysAhead || 3);
+  }, [notifPrefs.enabled, treatments, vaccines, pets]);
+
+  // On startup, sync permission state
+  useEffect(() => {
+    checkNotificationPermission().then((granted) => {
+      if (granted !== notifPrefs.enabled) {
+        const prefs = { ...notifPrefs, enabled: granted };
+        setNotifPrefs(prefs);
+        saveNotificationPrefs(prefs);
+      }
     });
-  }, [notifPrefs.enabled]);
+  }, []);
 
   const enableNotifications = async () => {
     const granted = await requestNotificationPermission();
     const prefs = { ...notifPrefs, enabled: granted };
     setNotifPrefs(prefs);
     saveNotificationPrefs(prefs);
+    if (granted) {
+      await scheduleUpcomingNotifications(treatments, vaccines, pets, prefs.daysAhead || 3);
+    }
     return granted;
   };
 
