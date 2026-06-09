@@ -52,76 +52,60 @@ export default function Home() {
   return (
     <div className="home-page">
 
-      {/* ── HEADER ── */}
-      <div className="home-header">
-        <div className="home-header-top">
-          <div>
-            <p className="home-greeting">Bonjour ! 👋</p>
-            <h1 className="home-title">
-              <span className="pico">PICO</span>
-              <span className="pets"> PETS</span>
-            </h1>
-          </div>
-          <div className="home-header-right">
-            <div className="home-date">{today}</div>
-            {!notifPrefs.enabled && (
-              <button className="notif-btn" onClick={enableNotifications} title="Activer les notifications">
-                🔔
-              </button>
-            )}
-          </div>
+      {/* ── TOP BAR ── */}
+      <div className="home-topbar">
+        <div>
+          <p className="home-greeting">Bonjour ! 👋</p>
+          <h1 className="home-title">
+            <span className="pico">PICO</span>
+            <span className="pets"> PETS</span>
+          </h1>
         </div>
-
-        {/* Illustration + CTA */}
-        <div className="dog-container">
-          <DogIllustration />
-          <div className="dog-bubble">
-            {pets.length === 0
-              ? 'Ajoute ton premier animal ! 🐾'
-              : `${pets.length} animal${pets.length > 1 ? 'x' : ''} sous ma garde !`}
-          </div>
-          {pets.length === 0 && (
-            <button className="add-first-btn" onClick={() => navigate('/pets/add')}>
-              ➕ Ajouter mon premier animal
+        <div className="home-topbar-right">
+          <div className="home-date">{today}</div>
+          {!notifPrefs.enabled && (
+            <button className="notif-btn" onClick={enableNotifications} title="Activer les notifications">
+              🔔
             </button>
           )}
         </div>
       </div>
 
-      {/* ── CONTENT ── */}
-      <div className="home-content">
+      {/* ── DOG ── */}
+      <div className="dog-container">
+        <DogIllustration />
+        <div className="dog-bubble">
+          {pets.length === 0
+            ? 'Ajoute ton premier animal ! 🐾'
+            : `${pets.length} animal${pets.length > 1 ? 'x' : ''} sous ma garde !`}
+        </div>
+      </div>
 
-        {/* Urgent alerts */}
+      {/* ── BOTTOM ZONE ── */}
+      <div className="home-bottom">
+
+        {/* Alerts (dark cards) */}
         {urgentAlerts.length > 0 && (
-          <div className="alerts-section">
-            <h2 className="section-title">⚠️ Urgent</h2>
+          <div className="alerts-row">
             {urgentAlerts.map((alert) => (
-              <div key={alert.id} className="alert-card">
-                <div className="alert-icon">{alert.type === 'vaccine' ? '💉' : '💊'}</div>
-                <div className="alert-info">
-                  <strong>{alert.petName}</strong>
-                  <span>{alert.title}</span>
-                  <span className={`badge ${alert.days === 0 ? 'badge-danger' : 'badge-warning'}`}>
-                    {alert.days === 0 ? "Aujourd'hui !" : `Dans ${alert.days} j.`}
-                  </span>
-                </div>
+              <div key={alert.id} className="alert-pill alert-pill--urgent">
+                <span>{alert.type === 'vaccine' ? '💉' : '💊'}</span>
+                <span>{alert.petName} — {alert.title}</span>
+                <span className="badge badge-danger">
+                  {alert.days === 0 ? "Auj. !" : `J-${alert.days}`}
+                </span>
               </div>
             ))}
           </div>
         )}
 
-        {/* Upcoming alerts */}
         {alerts.filter((a) => a.days > 1).length > 0 && (
-          <div className="alerts-section">
-            <h2 className="section-title">🔔 À venir</h2>
+          <div className="alerts-row">
             {alerts.filter((a) => a.days > 1).map((alert) => (
-              <div key={alert.id} className="alert-card alert-card--upcoming">
-                <div className="alert-icon">{alert.type === 'vaccine' ? '💉' : '💊'}</div>
-                <div className="alert-info">
-                  <strong>{alert.petName}</strong>
-                  <span>{alert.title}</span>
-                  <span className="badge badge-orange">Dans {alert.days} jours</span>
-                </div>
+              <div key={alert.id} className="alert-pill alert-pill--upcoming">
+                <span>{alert.type === 'vaccine' ? '💉' : '💊'}</span>
+                <span>{alert.petName} — {alert.title}</span>
+                <span className="badge badge-warning">J-{alert.days}</span>
               </div>
             ))}
           </div>
@@ -129,22 +113,29 @@ export default function Home() {
 
         {/* Pets carousel */}
         {pets.length > 0 && (
-          <div>
-            <h2 className="section-title">Mes animaux</h2>
-            <div className="pets-scroll">
-              {pets.slice(0, 6).map((pet) => (
-                <div key={pet.id} className="pet-mini-card"
-                  onClick={() => navigate(`/pets/${pet.id}`)}>
-                  <div className="pet-mini-avatar">
-                    {pet.photo
-                      ? <img src={pet.photo} alt={pet.name} />
-                      : <span>{pet.type === 'dog' ? '🐕' : pet.type === 'cat' ? '🐈' : '🐾'}</span>
-                    }
-                  </div>
-                  <span className="pet-mini-name">{pet.name}</span>
+          <div className="pets-scroll">
+            {pets.slice(0, 6).map((pet) => (
+              <div key={pet.id} className="pet-mini-card"
+                onClick={() => navigate(`/pets/${pet.id}`)}>
+                <div className="pet-mini-avatar">
+                  {pet.photo
+                    ? <img src={pet.photo} alt={pet.name} />
+                    : <span>{pet.type === 'dog' ? '🐕' : pet.type === 'cat' ? '🐈' : '🐾'}</span>
+                  }
                 </div>
-              ))}
-            </div>
+                <span className="pet-mini-name">{pet.name}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Bouton circulaire centré — uniquement si aucun animal */}
+        {pets.length === 0 && (
+          <div className="add-btn-wrap">
+            <button className="add-circle-btn" onClick={() => navigate('/pets/add')}>
+              <span className="add-circle-plus">＋</span>
+              <span className="add-circle-label">Ajouter mon<br/>premier animal</span>
+            </button>
           </div>
         )}
       </div>
