@@ -1,0 +1,17 @@
+{
+  "appId": "com.picopets.app",
+  "appName": "PICO PETS",
+  "webDir": "dist",
+  "android": {
+    "allowMixedContent": true,
+    "backgroundColor": "#0D1B2A"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "backgroundColor": "#0D1B2A",
+      "androidSplashResourceName": "splash",
+      "showSpinner": false
+    }
+  }
+}
