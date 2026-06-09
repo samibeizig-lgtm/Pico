@@ -164,10 +164,6 @@ export default function Home() {
               <span className="quick-icon">➕</span>
               <span>Ajouter<br/>un animal</span>
             </button>
-            <button className="quick-btn" onClick={() => navigate('/pets')}>
-              <span className="quick-icon">🐾</span>
-              <span>Voir mes<br/>animaux</span>
-            </button>
             {!notifPrefs.enabled && (
               <button className="quick-btn quick-btn--notif" onClick={enableNotifications}>
                 <span className="quick-icon">🔔</span>

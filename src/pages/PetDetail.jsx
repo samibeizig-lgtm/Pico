@@ -109,15 +109,13 @@ export default function PetDetail() {
               : <span>{typeInfo.emoji}</span>
             }
           </div>
-          <div className="petdetail-meta">
-            <h1>{pet.name}</h1>
-            <div className="petdetail-badges">
-              <span className="badge badge-orange">{typeInfo.label}</span>
-              {pet.breed && <span className="badge badge-blue">{pet.breed}</span>}
-              {pet.birthDate && (
-                <span className="badge badge-gray">{getAge(pet.birthDate)}</span>
-              )}
-            </div>
+          <h1 className="petdetail-name">{pet.name}</h1>
+          <div className="petdetail-badges">
+            <span className="badge badge-orange">{typeInfo.label}</span>
+            {pet.breed && <span className="badge badge-blue">{pet.breed}</span>}
+            {pet.birthDate && (
+              <span className="badge badge-gray">{getAge(pet.birthDate)}</span>
+            )}
           </div>
         </div>
 
